@@ -34,15 +34,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _title() {
-    return const Text('Firebase Auth');
+    return Text(user?.uid ?? 'Vote');
   }
 
   Widget _userUid() {
-    return Text(user?.uid ?? 'User email');
+    return Text(user?.uid ?? 'User');
   }
 
   Widget _signOutButton() {
-    return ElevatedButton(
+    return TextButton(
       onPressed: signOut,
       child: const Text('Sign Out'),
     );
@@ -65,6 +65,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: _title(),
+        foregroundColor: Colors.blue,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          _signOutButton(),
+          SizedBox(
+            width: 200,
+          )
+        ],
       ),
       body: Container(
         height: double.infinity,
@@ -79,9 +88,12 @@ class _HomePageState extends State<HomePage> {
                   Spacer(),
                   GestureDetector(
                     onTap: () => setState(() => _value = "siji"),
-                    child: Container(
-                      color: _value == "siji" ? Colors.grey : Colors.orange,
-                      child: Icon(Icons.call),
+                    child: Card(
+                      color: _value == "siji" ? Colors.grey : Colors.blue,
+                      child: Icon(
+                        Icons.person,
+                        size: 200,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -89,9 +101,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GestureDetector(
                     onTap: () => setState(() => _value = "loro"),
-                    child: Container(
-                      color: _value == "loro" ? Colors.grey : Colors.orange,
-                      child: Icon(Icons.message),
+                    child: Card(
+                      color: _value == "loro" ? Colors.grey : Colors.blue,
+                      child: Icon(
+                        Icons.person_outline,
+                        size: 200,
+                      ),
                     ),
                   ),
                   Spacer()
@@ -100,9 +115,11 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10,
               ),
-              _userUid(),
+              // _userUid(),
+              SizedBox(
+                height: 10,
+              ),
               _submitButton(),
-              _signOutButton(),
             ]),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vote_application/auth.dart';
+import 'package:vote_application/pages/done.dart';
 import 'package:vote_application/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -33,35 +34,33 @@ class _IsDonePageState extends State<IsDonePage> {
           .doc(userUid)
           .snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.data?.data()?.containsValue('value') == null) {
-          checkEmpty = true;
-        }
-        if (snapshot.data?.data()?.containsKey('value') == null) {
-          checkEmpty = true;
-        }
-        snapshot.data!.data()?.forEach((key, value) {
-          if (key == 'value') {
-            if (value == '') {
-              checkEmpty = true;
-            } else if (value == null) {
-              checkEmpty = true;
-            } else {
-              checkEmpty = false;
-            }
+        if (snapshot.hasData) {
+          if (snapshot.data?.data()?.containsValue('value') == null) {
+            checkEmpty = true;
           }
-        });
-        return checkEmpty
-            ? HomePage()
-            : Column(
-                children: [Text('Sudah Isi'), _signOutButton()],
-              );
-        // if (snapshot.data?.data()?.containsValue('value') == null) {
-        //   return HomePage();
-        // } else {
-        //   return Column(
-        //     children: [Text('Sudah Isi'), _signOutButton()],
-        //   );
-        // }
+          if (snapshot.data?.data()?.containsKey('value') == null) {
+            checkEmpty = true;
+          }
+          snapshot.data!.data()?.forEach((key, value) {
+            if (key == 'value') {
+              if (value == '') {
+                checkEmpty = true;
+              } else if (value == null) {
+                checkEmpty = true;
+              } else {
+                checkEmpty = false;
+                print('value');
+              }
+            }
+          });
+          return checkEmpty ? HomePage() : Done();
+        } else if (snapshot.hasError) {
+          return Text("Error");
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
       },
     );
   }
