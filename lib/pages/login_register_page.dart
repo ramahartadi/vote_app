@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vote_application/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vote_application/pages/app_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -96,9 +97,17 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _submitButton() {
     return ElevatedButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+            side: BorderSide(color: Colors.blue),
+          ),
+        ),
+      ),
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      child: Text(isLogin ? 'Login' : 'Register'),
+      child: Center(child: Text(isLogin ? 'Login' : 'Register')),
     );
   }
 
@@ -116,24 +125,33 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _title(),
-      ),
+      // appBar: AppBar(
+      //   title: _title(),
+      // ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
+        margin: EdgeInsets.symmetric(horizontal: 20),
         padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _entryField('email', _controllerEmail),
-            SizedBox(
-              height: 10,
+            CustomAppBar(),
+            Spacer(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _entryField('email', _controllerEmail),
+                SizedBox(
+                  height: 10,
+                ),
+                _entryPasswordField('password', _controllerPassword),
+                SizedBox(height: 20),
+                _errorMessage(),
+                _submitButton(),
+              ],
             ),
-            _entryPasswordField('password', _controllerPassword),
-            _errorMessage(),
-            _submitButton(),
+            Spacer(),
             // _loginOrRegisterButton(),
           ],
         ),

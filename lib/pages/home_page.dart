@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vote_application/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vote_application/model/vote.dart';
+import 'package:vote_application/pages/app_bar_logout.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -41,6 +42,10 @@ class _HomePageState extends State<HomePage> {
     return Text(user?.uid ?? 'User');
   }
 
+  Widget _userEmail() {
+    return Text(user?.email ?? 'User');
+  }
+
   Widget _signOutButton() {
     return TextButton(
       onPressed: signOut,
@@ -50,77 +55,100 @@ class _HomePageState extends State<HomePage> {
 
   Widget _submitButton() {
     return ElevatedButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+            side: BorderSide(color: Colors.blue),
+          ),
+        ),
+      ),
       onPressed: () async {
         setState(() {
           var voteAdd = Vote(id: user?.uid, email: user?.email, value: _value);
           addVote(voteAdd);
         });
       },
-      child: const Text('Submit'),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: const Text('Submit'),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _title(),
-        foregroundColor: Colors.blue,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          _signOutButton(),
-          SizedBox(
-            width: 200,
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: _title(),
+      //   foregroundColor: Colors.blue,
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   actions: [
+      //     _signOutButton(),
+      //     SizedBox(
+      //       width: 200,
+      //     )
+      //   ],
+      // ),
+
       body: Container(
         height: double.infinity,
         width: double.infinity,
         padding: const EdgeInsets.all(20),
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                children: [
-                  Spacer(),
-                  GestureDetector(
-                    onTap: () => setState(() => _value = "siji"),
-                    child: Card(
-                      color: _value == "siji" ? Colors.grey : Colors.blue,
-                      child: Icon(
-                        Icons.person,
-                        size: 200,
+          children: [
+            CustomAppBarLogOut(),
+            Spacer(),
+            _userEmail(),
+            SizedBox(
+              height: 30,
+            ),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () => setState(() => _value = "siji"),
+                        child: Card(
+                          color: _value == "siji" ? Colors.grey : Colors.blue,
+                          child: Icon(
+                            Icons.person,
+                            size: 200,
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      GestureDetector(
+                        onTap: () => setState(() => _value = "loro"),
+                        child: Card(
+                          color: _value == "loro" ? Colors.grey : Colors.blue,
+                          child: Icon(
+                            Icons.person_outline,
+                            size: 200,
+                          ),
+                        ),
+                      ),
+                      Spacer()
+                    ],
                   ),
                   SizedBox(
-                    width: 4,
+                    height: 10,
                   ),
-                  GestureDetector(
-                    onTap: () => setState(() => _value = "loro"),
-                    child: Card(
-                      color: _value == "loro" ? Colors.grey : Colors.blue,
-                      child: Icon(
-                        Icons.person_outline,
-                        size: 200,
-                      ),
-                    ),
+                  // _userUid(),
+                  SizedBox(
+                    height: 10,
                   ),
-                  Spacer()
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              // _userUid(),
-              SizedBox(
-                height: 10,
-              ),
-              _submitButton(),
-            ]),
+                  _submitButton(),
+                ]),
+            Spacer(),
+          ],
+        ),
       ),
     );
   }
