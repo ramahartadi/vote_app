@@ -17,9 +17,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: const Color.fromARGB(255, 160, 0, 0),
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(primary: const Color.fromARGB(255, 192, 0, 0)),
           textTheme:
-              Theme.of(context).textTheme.apply(fontFamily: 'Open Sans')),
+              Theme.of(context).textTheme.apply(fontFamily: 'Metropolis')),
       home: const WidgetTree(),
     );
   }

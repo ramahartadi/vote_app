@@ -19,14 +19,12 @@ class _HomePageState extends State<HomePage> {
       FirebaseFirestore.instance.collection("users");
 
   Future<void> addVote(Vote vote) {
-    return collectionReferenceUser
-        .doc(user?.uid)
-        .set({
-          'id': vote.id,
-          'email': vote.email,
-          'value': vote.value,
-        })
-        .then((value) => print("vote added"))
+    return collectionReferenceUser.doc(user?.uid).set({
+      'id': vote.id,
+      'email': vote.email,
+      'value': vote.value,
+    })
+        // .then((value) => print("vote added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
@@ -59,7 +57,6 @@ class _HomePageState extends State<HomePage> {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
-            side: BorderSide(color: Colors.blue),
           ),
         ),
       ),
@@ -100,7 +97,28 @@ class _HomePageState extends State<HomePage> {
           children: [
             CustomAppBarLogOut(),
             Spacer(),
-            _userEmail(),
+            Column(
+              children: [
+                Text(
+                  "PEMILU CAKAHIM",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "PERIODE 2023",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // _userEmail(),
             SizedBox(
               height: 30,
             ),
@@ -111,41 +129,93 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       Spacer(),
-                      GestureDetector(
-                        onTap: () => setState(() => _value = "siji"),
-                        child: Card(
-                          color: _value == "siji" ? Colors.grey : Colors.blue,
-                          child: Icon(
-                            Icons.person,
-                            size: 200,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      GestureDetector(
-                        onTap: () => setState(() => _value = "loro"),
-                        child: Card(
-                          color: _value == "loro" ? Colors.grey : Colors.blue,
-                          child: Icon(
-                            Icons.person_outline,
-                            size: 200,
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () => setState(() => _value = "siji"),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: _value == "siji"
+                                      ? Image.asset(
+                                          'Nourut1abu.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.43,
+                                        )
+                                      : Image.asset(
+                                          'Nourut1.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.4,
+                                        ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              GestureDetector(
+                                onTap: () => setState(() => _value = "loro"),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: _value == "loro"
+                                      ? Image.asset(
+                                          'Nourut2abu.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.42,
+                                        )
+                                      : Image.asset(
+                                          'Nourut2.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.4,
+                                        ),
+
+                                  // Icon(
+                                  //   Icons.person_outline,
+                                  //   size: 200,
+                                  // ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       Spacer()
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+
                   // _userUid(),
                   SizedBox(
-                    height: 10,
+                    height: 5,
+                  ),
+                  AnimatedOpacity(
+                    opacity: _value == null ? 0.0 : 1.0,
+                    duration: const Duration(milliseconds: 500),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(children: [
+                          _userEmail(),
+                          Text("vote nomor ${_value}")
+                        ]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   _submitButton(),
                 ]),
+
             Spacer(),
           ],
         ),

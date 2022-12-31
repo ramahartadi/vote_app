@@ -25,9 +25,22 @@ class Done extends StatelessWidget {
           children: [
             CustomAppBarLogOut(),
             Spacer(),
-            Text(
-              'Sudah Isi',
-              style: TextStyle(fontSize: 30),
+            Container(
+              width: 400,
+              child: Text(
+                'Terima kasih kepada akang teteh yang telah berpartisipasi dalam pemilihan Calon Ketua Himpunan Pedra kabinet 2023 🙏☺',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 400,
+              child: Text(
+                'Siapapun yang terpilih semoga dapat amanah dan memajukan Pedra kedepannya!!!',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
             ),
             Spacer()
           ],

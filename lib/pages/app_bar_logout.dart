@@ -16,7 +16,7 @@ class CustomAppBarLogOut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(46),
@@ -31,20 +31,35 @@ class CustomAppBarLogOut extends StatelessWidget {
         SizedBox(
           width: 10,
         ),
-        Text(
-          "UNPAD",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
+        Image.asset(
+          'logopedra.png',
+          height: 70,
         ),
+        Spacer(),
+        // Column(
+        //   children: [
+        //     Text(
+        //       "PEMILU CAKAHIM",
+        //       style: TextStyle(
+        //         fontSize: 22,
+        //         fontWeight: FontWeight.bold,
+        //       ),
+        //     ),
+        //     Text(
+        //       "PERIODE 2023",
+        //       style: TextStyle(
+        //         fontSize: 22,
+        //         fontWeight: FontWeight.bold,
+        //       ),
+        //     ),
+        //   ],
+        // ),
         Spacer(),
         ElevatedButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
-                side: BorderSide(color: Colors.blue),
               ),
             ),
           ),

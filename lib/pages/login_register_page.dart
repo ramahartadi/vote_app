@@ -56,10 +56,16 @@ class _LoginPageState extends State<LoginPage> {
     TextEditingController controller,
   ) {
     return TextField(
+      style: TextStyle(color: Colors.white),
       controller: controller,
       decoration: InputDecoration(
         labelText: title,
+        labelStyle: TextStyle(color: Colors.white),
         border: const OutlineInputBorder(),
+        enabledBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
       ),
     );
   }
@@ -69,15 +75,22 @@ class _LoginPageState extends State<LoginPage> {
     TextEditingController controller,
   ) {
     return TextFormField(
+      style: TextStyle(color: Colors.white),
       controller: controller,
       decoration: InputDecoration(
         labelText: title,
         border: const OutlineInputBorder(),
+        labelStyle: TextStyle(color: Colors.white),
+        enabledBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
         suffixIcon: IconButton(
           icon: Icon(
             obscurePassword
                 ? Icons.visibility_outlined
                 : Icons.visibility_off_outlined,
+            color: Colors.white,
           ),
           tooltip: 'Delete',
           onPressed: () {
@@ -97,17 +110,14 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _submitButton() {
     return ElevatedButton(
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-            side: BorderSide(color: Colors.blue),
-          ),
-        ),
-      ),
+      style: ElevatedButton.styleFrom(primary: Colors.white),
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      child: Center(child: Text(isLogin ? 'Login' : 'Register')),
+      child: Center(
+          child: Text(
+        isLogin ? 'Login' : 'Register',
+        style: TextStyle(color: Colors.red[900]),
+      )),
     );
   }
 
@@ -141,14 +151,51 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _entryField('email', _controllerEmail),
-                SizedBox(
-                  height: 10,
+                Column(
+                  children: [
+                    Text(
+                      "PEMILU CAKAHIM",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "PERIODE 2023",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-                _entryPasswordField('password', _controllerPassword),
-                SizedBox(height: 20),
-                _errorMessage(),
-                _submitButton(),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Image.asset(
+                        'kpupedra.jpeg',
+                        height: 200,
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        children: [
+                          _entryField('email', _controllerEmail),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          _entryPasswordField('password', _controllerPassword),
+                          SizedBox(height: 20),
+                          _errorMessage(),
+                          _submitButton(),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
             Spacer(),

@@ -4,7 +4,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(46),
@@ -19,29 +19,37 @@ class CustomAppBar extends StatelessWidget {
         SizedBox(
           width: 10,
         ),
+
+        Image.asset(
+          'logopedra.png',
+          height: 70,
+        ),
+        SizedBox(
+          width: 20,
+        ),
         Text(
-          "UNPAD",
+          "HIMA GEOFISIKA PEDRA",
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Spacer(),
-        ElevatedButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
-                side: BorderSide(color: Colors.blue),
-              ),
-            ),
-          ),
-          onPressed: () {},
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text("Sign in"),
-          ),
-        ),
+        // Spacer(),
+        // ElevatedButton(
+        //   style: ButtonStyle(
+        //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        //       RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(24),
+        //         side: BorderSide(color: Colors.blue),
+        //       ),
+        //     ),
+        //   ),
+        //   onPressed: () {},
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(12.0),
+        //     child: Text("Sign in"),
+        //   ),
+        // ),
       ]),
     );
   }
