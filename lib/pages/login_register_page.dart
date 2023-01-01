@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Expanded(
                       child: Image.asset(
-                        'kpupedra.jpeg',
+                        "assets/kpupedra.jpeg",
                         height: 200,
                       ),
                     ),

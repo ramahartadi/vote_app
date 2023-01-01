@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget {
         ),
 
         Image.asset(
-          'logopedra.png',
+          "assets/logopedra.png",
           height: 70,
         ),
         SizedBox(

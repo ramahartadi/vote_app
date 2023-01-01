@@ -14,7 +14,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
-  String? _value;
+  String? _value = '';
+  String? errorMessage = '';
   CollectionReference collectionReferenceUser =
       FirebaseFirestore.instance.collection("users");
 
@@ -51,6 +52,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _errorMessage() {
+    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+  }
+
   Widget _submitButton() {
     return ElevatedButton(
       style: ButtonStyle(
@@ -62,8 +67,13 @@ class _HomePageState extends State<HomePage> {
       ),
       onPressed: () async {
         setState(() {
-          var voteAdd = Vote(id: user?.uid, email: user?.email, value: _value);
-          addVote(voteAdd);
+          if (_value == '') {
+            errorMessage = "Vote terlebih dahulu";
+          } else {
+            var voteAdd =
+                Vote(id: user?.uid, email: user?.email, value: _value);
+            addVote(voteAdd);
+          }
         });
       },
       child: Padding(
@@ -102,16 +112,16 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   "PEMILU CAKAHIM",
                   style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 Text(
                   "PERIODE 2023",
                   style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               ],
             ),
@@ -136,19 +146,19 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               GestureDetector(
-                                onTap: () => setState(() => _value = "siji"),
+                                onTap: () => setState(() => _value = "satu"),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: _value == "siji"
+                                  child: _value == "satu"
                                       ? Image.asset(
-                                          'Nourut1abu.png',
+                                          "assets/Nourut1abu.png",
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
                                               0.43,
                                         )
                                       : Image.asset(
-                                          'Nourut1.png',
+                                          "assets/Nourut1.png",
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -160,19 +170,19 @@ class _HomePageState extends State<HomePage> {
                                 width: 4,
                               ),
                               GestureDetector(
-                                onTap: () => setState(() => _value = "loro"),
+                                onTap: () => setState(() => _value = "dua"),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: _value == "loro"
+                                  child: _value == "dua"
                                       ? Image.asset(
-                                          'Nourut2abu.png',
+                                          "assets/Nourut2abu.png",
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
                                               0.42,
                                         )
                                       : Image.asset(
-                                          'Nourut2.png',
+                                          "assets/Nourut2.png",
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -198,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                     height: 5,
                   ),
                   AnimatedOpacity(
-                    opacity: _value == null ? 0.0 : 1.0,
+                    opacity: _value == '' ? 0.0 : 1.0,
                     duration: const Duration(milliseconds: 500),
                     child: Card(
                       child: Padding(
@@ -214,6 +224,7 @@ class _HomePageState extends State<HomePage> {
                     height: 5,
                   ),
                   _submitButton(),
+                  _errorMessage()
                 ]),
 
             Spacer(),

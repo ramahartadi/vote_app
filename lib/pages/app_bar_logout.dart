@@ -32,7 +32,7 @@ class CustomAppBarLogOut extends StatelessWidget {
           width: 10,
         ),
         Image.asset(
-          'logopedra.png',
+          "assets/logopedra.png",
           height: 70,
         ),
         Spacer(),
